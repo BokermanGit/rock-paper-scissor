@@ -1,57 +1,76 @@
-function getHumanChoice() {
-    if (choice == "rock") {
+function playGame(){
+
+    function getHumanChoice() {
+        if (choice == "rock") {
         return (1); 
-    } else if (choice == "paper") {
+        } else if (choice == "paper") {
         return (2);
-    } else if (choice == "scissor") {
-        return (3);
+        } else if (choice == "scissor") {
+        return (3);     
+        }
+        else return null;
     }
-    else return null;      
-}
 
-function getComputerChoice() {
-    let random = Math.floor(Math.random() * 3) + 1;
-    if (random === 1) {
-    alert ("Computer choose rock");
-    } else if (random === 2) {
-    alert ("Computer choose paper");
-    } else {
-    alert ("Computer choose scissor");
-    } 
-    return random;  
-}
+    function getComputerChoice() {
+        let random = Math.floor(Math.random() * 3) + 1;
+        if (random === 1) {
+        alert ("Computer choose rock");
+        } else if (random === 2) {
+        alert ("Computer choose paper");
+        } else {
+        alert ("Computer choose scissor");
+        } 
+        return random;  
+    }
 
-function battle (a, b) {
-    if (a === b) {
+    function battle (a, b) {
+        if (a === b) {
         alert("draw");
-    } else if ((a +1) === b || (a - 2) === b) {
+        return null;
+        } else if ((a +1) === b || (a - 2) === b) {
         alert("You lose");
-    } else  {
-    alert ("You win!");
+        return false;
+        } else  {
+        alert ("You win!");
+        return true;
+        }
     }
-}
 
-function playRound(humanChoice, computerChoice){
-
-}
-
-let choice = prompt("Choose rock paper or scissor", "");
-
-// let humanScore = getHumanChoice();
-// console.log(humanChoice);
-
-if (getHumanChoice() === null) {
+    let choice = prompt("Choose rock paper or scissor", "");
+    if (getHumanChoice() === null) {
     alert("Wrong answer");
-} else {
+    return;
+    }
 
-// let computerChoice = getComputerChoice();
-// console.log(computerChoice);
+    let result = battle(getHumanChoice(), getComputerChoice());
+    if (result === true) humanScore++;
+    else if (result === false) computerScore++;
+    rounds++;
 
-battle(getHumanChoice(), getComputerChoice());
+    console.log("Round: " + rounds + "  You " + humanScore + " - Computer " + computerScore);
 
-let humanScore = 0;
-let computerScore = 0; 
+     if (rounds === 5) {
+        alert("Game over!");
+        if (humanScore === computerScore)
+            alert("Draw");
+            else if (humanScore < computerScore)
+            alert("You lost game!");
+            else alert("You won game!");
 
-
-
+            humanScore = 0;
+            computerScore = 0;
+            rounds = 0;
+        return;
+    } 
+     
 }
+
+    let humanScore = 0;
+    let computerScore = 0; 
+    let rounds = 0;
+    
+document.querySelector("#play").addEventListener("click", playGame);
+
+
+
+
